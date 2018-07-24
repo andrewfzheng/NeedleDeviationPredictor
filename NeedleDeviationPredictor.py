@@ -1,28 +1,23 @@
-# -*- coding: utf-8 -*-
-
-# TODO Function to check if any input fields are empty/not float, visualization with percentages
-
 from __main__ import vtk, qt, ctk, slicer
 from math import exp
 import os
 
 
-class MachineLearningModule:
+class NeedleDeviationPredictor:
     def __init__(self, parent):
-        parent.title = "Machine Learning Module"
+        parent.title = "Needle Deviation Predictor"
         parent.categories = ["Utilities"]
         parent.contributors = ["Andrew Zheng"]
         parent.helpText = """
-        helptext
         """
         parent.acknowledgementText = """
         Pedro Moreira, PhD, Nobuhiko Hata, PhD
         """        
-        parent.icon = qt.QIcon(os.path.dirname(os.path.realpath(__file__)) + '/Machine Learning Module GUI/icon.png')
+        parent.icon = qt.QIcon(os.path.dirname(os.path.realpath(__file__)) + '/Needle Deviation Predictor GUI/icon.png')
         self.parent = parent
 
 
-class MachineLearningModuleWidget:
+class NeedleDeviationPredictorWidget:
     def __init__(self, parent=None):
         if not parent:
             self.parent = slicer.qMRMLWidget()
@@ -136,7 +131,7 @@ class MachineLearningModuleWidget:
         self.outputLabel.setText("The needle has a 0.00% chance of hitting the target, 0.00% chance \nof deflecting "
                                  "right, and 0.00% chance of deflecting to the top.")
         # Initial visual output
-        image = qt.QPixmap(self.dir + "/Machine Learning Module GUI/output1.png")
+        image = qt.QPixmap(self.dir + "/Needle Deviation Predictor GUI/output1.png")
         self.label1 = qt.QLabel("")
 
         # Scaling and sizing
@@ -199,7 +194,7 @@ class MachineLearningModuleWidget:
             self.quarter = "Q4"
 
         # Update output visual
-        image = qt.QPixmap(self.dir + ("/Machine Learning Module GUI/%s%s.png" % (str(self.quarter), str(self.hitMiss)))
+        image = qt.QPixmap(self.dir + ("/Needle Deviation Predictor GUI/%s%s.png" % (str(self.quarter), str(self.hitMiss)))
                            )
         self.label1.setPixmap(image)
 
