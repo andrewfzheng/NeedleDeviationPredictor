@@ -13,7 +13,7 @@ class NeedleDeviationPredictor:
         parent.acknowledgementText = """
         Pedro Moreira, PhD, Nobuhiko Hata, PhD
         """        
-        parent.icon = qt.QIcon(os.path.dirname(os.path.realpath(__file__)) + '/Needle Deviation Predictor GUI/icon.png')
+        parent.icon = qt.QIcon(os.path.dirname(os.path.realpath(__file__)) + '/NeedleDeviationPredictor GUI/icon.png')
         self.parent = parent
 
 
@@ -131,7 +131,7 @@ class NeedleDeviationPredictorWidget:
         self.outputLabel.setText("The needle has a 0.00% chance of hitting the target, 0.00% chance \nof deflecting "
                                  "right, and 0.00% chance of deflecting to the top.")
         # Initial visual output
-        image = qt.QPixmap(self.dir + "/Needle Deviation Predictor GUI/output1.png")
+        image = qt.QPixmap(self.dir + "/NeedleDeviationPredictor GUI/output1.png")
         self.label1 = qt.QLabel("")
 
         # Scaling and sizing
@@ -197,7 +197,7 @@ class NeedleDeviationPredictorWidget:
             self.quarter = "Q4"
 
         # Update output visual
-        image = qt.QPixmap(self.dir + ("/Needle Deviation Predictor GUI/%s%s.png" % (str(self.quarter), str(self.hitMiss
+        image = qt.QPixmap(self.dir + ("/NeedleDeviationPredictor GUI/%s%s.png" % (str(self.quarter), str(self.hitMiss
                                                                                                             ))))
         self.label1.setPixmap(image)
 
