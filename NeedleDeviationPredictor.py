@@ -43,7 +43,7 @@ class NeedleDeviationPredictorWidget:
 
         # Input box
         inputBox = ctk.ctkCollapsibleGroupBox()
-        inputBox.setTitle('Input')
+        inputBox.setTitle('Input:')
         self.setupLayout.addRow(inputBox)
         self.inputBox = qt.QFormLayout(inputBox)
 
@@ -142,6 +142,9 @@ class NeedleDeviationPredictorWidget:
         self.label1.setSizePolicy(qSize)
         self.outputBox.addRow(self.label1)
 
+        # Vertical spacer
+        self.layout.addStretch(1)
+
         # Check all entered values are floats
         values = [self.bevelAngle, self.entryErrR, self.entryErrA, self.entryErrS, self.curveRadius,
                   self.insertionLength, self.len1, self.len2, self.len3, self.len4, self.len5]
@@ -179,9 +182,9 @@ class NeedleDeviationPredictorWidget:
 
         # Update output text
         self.outputLabel.setText(
-            "The needle has a %.2f %% chance of %s the target, %.2f %% chance of \ndeflecting %s, and %.2f %% chance \n"
-            "of deflecting to the %s." % (self.below5Accuracy, self.hitMiss, self.inRightAccuracy, self.rightLeft,
-                                          self.inTopAccuracy, self.topBottom))
+            "The needle has a %.2f %% chance of %s the target, %.2f %% chance \nof deflecting %s, and %.2f %% chance of"
+            " deflecting to the %s." % (self.below5Accuracy, self.hitMiss, self.inRightAccuracy, self.rightLeft,
+                                        self.inTopAccuracy, self.topBottom))
 
         # Get predicted quadrant that needle will deviate towards
         if self.rightLeft == "right" and self.topBottom == "top":
@@ -194,8 +197,8 @@ class NeedleDeviationPredictorWidget:
             self.quarter = "Q4"
 
         # Update output visual
-        image = qt.QPixmap(self.dir + ("/Needle Deviation Predictor GUI/%s%s.png" % (str(self.quarter), str(self.hitMiss)))
-                           )
+        image = qt.QPixmap(self.dir + ("/Needle Deviation Predictor GUI/%s%s.png" % (str(self.quarter), str(self.hitMiss
+                                                                                                            ))))
         self.label1.setPixmap(image)
 
         # Set size policy for updated output
@@ -218,50 +221,50 @@ class NeedleDeviationPredictorWidget:
         self.len4val = float(self.len4.text)
         self.len5val = float(self.len5.text)
 
-        # Average percentage of instances classified correctly over 10 logistic regressions using data from 175
-        # insertions, 2/3 as training and 1/3 as testing data split randomly for each test.
-        self.below5Accuracy = 63.87
-
-        # Logistic regression model used to classify whether the insertion error was above or below 5 mm.
+        # Logistic regression model used to classify whether the targeting error was above or below 5 mm
         self.below5 = 1 / (1 + exp(0.0004 * self.bevelAngleval - 0.1537 * self.entryErrRval - 0.1052 * self.entryErrAval
                            + 0.0239 * self.entryErrSval + 0.00003 * self.curveRadiusval + 0.0232 *
                            self.insertionLengthval - 0.0306 * self.len1val - 0.0001 * self.len2val - 0.0133 *
                            self.len3val - 0.0072 * self.len4val - 0.0053 * self.len5val - 1.4805))
-        print self.below5
+
         if self.below5 > 0.5:
             self.hitMiss = "hitting"
+            # Probability of targeting error less than 5 mm
+            self.below5Accuracy = 100 * self.below5
         else:
             self.hitMiss = "missing"
+            # Probability of targeting error greater than 5 mm
+            self.below5Accuracy = 100 - 100 * self.below5
 
-        # Average percentage of instances classified correctly over 10 logistic regressions using data from 175
-        # insertions, 2/3 as training and 1/3 as testing data split randomly for each test.
-        self.inRightAccuracy = 77.29
-
-        # Logistic regresion model used to classify whether the needle deviated to the right or to the left of the
-        # target.
+        # Logistic regression model used to classify whether the needle deviated to the right or to the left of the
+        # target
         self.inRight = 1 / (1 + exp(-0.0037 * self.bevelAngleval - 0.8917 * self.entryErrRval - 0.2234 *
                             self.entryErrAval - 0.0303 * self.entryErrSval + 0.0002 * self.curveRadiusval + 0.0095 *
                             self.insertionLengthval - 0.068))
         print self.inRight
         if self.inRight > 0.5:
             self.rightLeft = "right"
+            # Probability of needle deviation to the right
+            self.inRightAccuracy = 100 * self.inRight
         else:
             self.rightLeft = "left"
-
-        # Average percentage of instances classified correctly over 10 logistic regressions using data from 175
-        # insertions, 2/3 as training and 1/3 as testing data split randomly for each test.
-        self.inTopAccuracy = 74.92
+            # Probability of needle deviation to the left
+            self.inRightAccuracy = 100 - 100 * self.inRight
 
         # Logistic regression model used to classify whether the needle deviated to the top or to the bottom of the
-        # target.
+        # target
         self.inTopPlus2 = 1 / (1 + exp(0.0013 * self.bevelAngleval - 0.0996 * self.entryErrRval - 0.7932 *
                                self.entryErrAval + 0.0384 * self.entryErrSval - 0.0002 * self.curveRadiusval + 0.0279 *
                                self.insertionLengthval - 3.0831))
         print self.inTopPlus2
         if self.inTopPlus2 > 0.5:
             self.topBottom = "top"
+            # Probability of needle deviation to the top
+            self.inTopAccuracy = 100 * self.inTopPlus2
         else:
             self.topBottom = "bottom"
+            # Probability of needle deviation to the bottom
+            self.inTopAccuracy = 100 - 100 * self.inTopPlus2
 
         # Update output text and visual
         self.display_output()
