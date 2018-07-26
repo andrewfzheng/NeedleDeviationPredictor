@@ -131,7 +131,7 @@ class NeedleDeviationPredictorWidget:
         self.outputLabel.setText("The needle has a 0.00% chance of hitting the target, 0.00% chance \nof deflecting "
                                  "right, and 0.00% chance of deflecting to the top.")
         # Initial visual output
-        image = qt.QPixmap(self.dir + "/NeedleDeviationPredictor GUI/output1.png")
+        image = qt.QPixmap(self.dir + "/NeedleDeviationPredictor GUI/empty.png")
         self.label1 = qt.QLabel("")
 
         # Scaling and sizing
@@ -187,7 +187,11 @@ class NeedleDeviationPredictorWidget:
                                         self.inTopAccuracy, self.topBottom))
 
         # Get predicted quadrant that needle will deviate towards
-        if self.rightLeft == "right" and self.topBottom == "top":
+
+        # If insertion is likely to reach lesion, direction of deviation does not need to be corrected for
+        if self.below5 > 0.5:
+            self.quarter = ""
+        elif self.rightLeft == "right" and self.topBottom == "top":
             self.quarter = "Q1"
         elif self.rightLeft == "right" and self.topBottom == "bottom":
             self.quarter = "Q2"
@@ -198,7 +202,7 @@ class NeedleDeviationPredictorWidget:
 
         # Update output visual
         image = qt.QPixmap(self.dir + ("/NeedleDeviationPredictor GUI/%s%s.png" % (str(self.quarter), str(self.hitMiss
-                                                                                                            ))))
+                                                                                                          ))))
         self.label1.setPixmap(image)
 
         # Set size policy for updated output
@@ -241,7 +245,6 @@ class NeedleDeviationPredictorWidget:
         self.inRight = 1 / (1 + exp(-0.0037 * self.bevelAngleval - 0.8917 * self.entryErrRval - 0.2234 *
                             self.entryErrAval - 0.0303 * self.entryErrSval + 0.0002 * self.curveRadiusval + 0.0095 *
                             self.insertionLengthval - 0.068))
-        print self.inRight
         if self.inRight > 0.5:
             self.rightLeft = "right"
             # Probability of needle deviation to the right
@@ -256,7 +259,6 @@ class NeedleDeviationPredictorWidget:
         self.inTopPlus2 = 1 / (1 + exp(0.0013 * self.bevelAngleval - 0.0996 * self.entryErrRval - 0.7932 *
                                self.entryErrAval + 0.0384 * self.entryErrSval - 0.0002 * self.curveRadiusval + 0.0279 *
                                self.insertionLengthval - 3.0831))
-        print self.inTopPlus2
         if self.inTopPlus2 > 0.5:
             self.topBottom = "top"
             # Probability of needle deviation to the top

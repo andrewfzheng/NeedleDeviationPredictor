@@ -1803,8 +1803,8 @@
       <file leaf-file-name="NeedleDeviationPredictor.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NeedleDeviationPredictor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1572">
-              <caret line="133" column="55" lean-forward="false" selection-start-line="133" selection-start-column="55" selection-end-line="133" selection-end-column="55" />
+            <state relative-caret-position="256">
+              <caret line="216" column="38" lean-forward="true" selection-start-line="216" selection-start-column="38" selection-end-line="216" selection-end-column="38" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -1823,11 +1823,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>'filename'</find>
-      <find>testfirst</find>
-      <find>&quot;#testfirstline \n \n&quot;</find>
-      <find>failed to</find>
-      <find>class_name =</find>
       <find>javabridge.static</find>
       <find>javabridge</find>
       <find>loaddataset</find>
@@ -1853,6 +1848,11 @@
       <find>module</find>
       <find>collaps</find>
       <find>vertical</find>
+      <find>.png</find>
+      <find>hitmiss</find>
+      <find>icon</find>
+      <find>print</find>
+      <find>hit</find>
     </findStrings>
     <replaceStrings>
       <replace>len1</replace>
@@ -1909,9 +1909,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="720" />
+    <option name="y" value="23" />
+    <option name="width" value="720" />
+    <option name="height" value="825" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -1929,21 +1931,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="LeapLink" type="cbb8eebc:String" user="LeapLink" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Machine Learning Module" type="cbb8eebc:String" user="Machine Learning Module" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -1959,6 +1946,21 @@
             <path>
               <item name="NeedleDeviationPredictor" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="LeapLink" type="cbb8eebc:String" user="LeapLink" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Machine Learning Module" type="cbb8eebc:String" user="Machine Learning Module" />
             </path>
           </expand>
           <select />
@@ -2075,20 +2077,20 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="720" y="23" width="720" height="825" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16458334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16458334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2156,7 +2158,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="34" lean-forward="false" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2174,7 +2175,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="15" column="34" lean-forward="false" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2315,19 +2315,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5141">
           <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NeedleDeviationPredictor GUI/Q4missing.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/NeedleDeviationPredictor GUI/Q4missing.png" />
     <entry file="file://$PROJECT_DIR$/NeedleDeviationPredictor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1572">
-          <caret line="133" column="55" lean-forward="false" selection-start-line="133" selection-start-column="55" selection-end-line="133" selection-end-column="55" />
+        <state relative-caret-position="256">
+          <caret line="216" column="38" lean-forward="true" selection-start-line="216" selection-start-column="38" selection-end-line="216" selection-end-column="38" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
