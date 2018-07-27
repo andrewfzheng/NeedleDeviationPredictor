@@ -211,7 +211,11 @@ class NeedleDeviationPredictorWidget:
         qSize.setVerticalPolicy(qt.QSizePolicy.Preferred)
 
     def run_regressions(self):
-        
+
+        # The attribute below5 was correctly classified 68.64% of the time over 10 random tests.
+        # The attribute inRight was correctly classified 77.29% of the time over 10 random tests.
+        # The attribute inTopPlus2 was correctly classified 74.92% of the time over 10 random tests.
+
         # Convert user input to float
         self.bevelAngleval = float(self.bevelAngle.text)
         self.entryErrRval = float(self.entryErrR.text)
