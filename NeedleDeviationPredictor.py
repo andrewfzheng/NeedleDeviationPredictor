@@ -22,13 +22,13 @@ class NeedleDeviationPredictorWidget:
         if not parent:
             self.parent = slicer.qMRMLWidget()
             self.parent.setLayout(qt.QVBoxLayout())
-            self.parent.setMRMLScene(slicer.mrmlScene)
         else:
             self.parent = parent
             self.layout = self.parent.layout()
         if not parent:
             self.setup()
             self.parent.show()
+        self.inputsFilled = False
 
     def setup(self):
         self.dir = os.path.dirname(os.path.realpath(__file__))
@@ -47,10 +47,13 @@ class NeedleDeviationPredictorWidget:
         self.setupLayout.addRow(inputBox)
         self.inputBox = qt.QFormLayout(inputBox)
 
-        # Bevel angle
-        self.bevelAngle = qt.QLineEdit()
-        self.bevelAngle.setPlaceholderText("Enter angle (deg)")
-        self.inputBox.addRow("Bevel Angle:", self.bevelAngle)
+        # Bevel angle slider
+        self.bevelAngleSlider = ctk.ctkSliderWidget()
+        self.bevelAngleSlider.connect('valueChanged(double)', self.bevel_angle_changed)
+        self.bevelAngleSlider.decimals = 0
+        self.bevelAngleSlider.minimum = 0
+        self.bevelAngleSlider.maximum = 360
+        self.inputBox.addRow("Bevel Angle:", self.bevelAngleSlider)
 
         # R-Axis Entry Error
         self.entryErrR = qt.QLineEdit()
@@ -128,8 +131,8 @@ class NeedleDeviationPredictorWidget:
         # Initial output text
         self.outputLabel = qt.QLabel("")
         self.outputBox.addRow(self.outputLabel)
-        self.outputLabel.setText("The needle has a 0.00% chance of hitting the target, 0.00% chance \nof deflecting "
-                                 "right, and 0.00% chance of deflecting to the top.")
+        self.outputLabel.setText("The needle has a rating of 0.0/10.0 for hitting the \ntarget, a rating of 0.0/10.0 "
+                                 "for deflecting to the right,\nand a rating of 0.0/10.0 for deflecting to the top.")
         # Initial visual output
         image = qt.QPixmap(self.dir + "/NeedleDeviationPredictor GUI/empty.png")
         self.label1 = qt.QLabel("")
@@ -146,7 +149,7 @@ class NeedleDeviationPredictorWidget:
         self.layout.addStretch(1)
 
         # Check all entered values are floats
-        values = [self.bevelAngle, self.entryErrR, self.entryErrA, self.entryErrS, self.curveRadius,
+        values = [self.entryErrR, self.entryErrA, self.entryErrS, self.curveRadius,
                   self.insertionLength, self.len1, self.len2, self.len3, self.len4, self.len5]
         for value in values:
             value.textChanged.connect(self.check_inputs)
@@ -159,36 +162,40 @@ class NeedleDeviationPredictorWidget:
             return False
 
     def check_inputs(self):
-
-        # Count number of entered values that are floats
-        counter = 0
-        values = [self.bevelAngle, self.entryErrR, self.entryErrA, self.entryErrS, self.curveRadius,
+        self.counter = 0
+        # Count number of entered values that are floats except bevel angle
+        values = [self.entryErrR, self.entryErrA, self.entryErrS, self.curveRadius,
                   self.insertionLength, self.len1, self.len2, self.len3, self.len4, self.len5]
         for value in values:
             if self.is_float(value.text):
-                counter += 1
+                self.counter += 1
             else:
-                counter -= 1
+                self.counter -= 1
 
-        # Total number of values
-        if counter == 11:
+        # Total number of values except bevel angle
+        if self.counter == 10:
             self.calculateError.setEnabled(1)
             self.calculateError.setText('Calculate Error:')
+            self.inputsFilled = True
         else:
             self.calculateError.setEnabled(0)
             self.calculateError.setText('Enter all data first!')
 
-    def display_output(self):
+    def bevel_angle_changed(self, newValue):
+        self.bevelAngleval = newValue
+        # Actively calculate output as bevel angle is changed if all other inputs are given
+        if self.inputsFilled:
+            self.run_regressions()
 
+    def display_output(self):
         # Update output text
         self.outputLabel.setText(
-            "The needle has a %.2f %% chance of %s the target, %.2f %% chance \nof deflecting %s, and %.2f %% chance of"
-            " deflecting to the %s." % (self.below5Accuracy, self.hitMiss, self.inRightAccuracy, self.rightLeft,
-                                        self.inTopAccuracy, self.topBottom))
+            "The needle has a rating of %0.1f/10.0 for %s \nthe target, a rating of %0.1f/10.0 for deflecting %s,\nand "
+            "a rating of %0.1f/10.0 for deflecting to the %s." % (self.below5Accuracy, self.hitMiss,
+                                                              self.inRightAccuracy, self.rightLeft,
+                                                              self.inTopAccuracy, self.topBottom))
 
-        # Get predicted quadrant that needle will deviate towards
-
-        # If insertion is likely to reach lesion, direction of deviation does not need to be corrected for
+        # Get predicted quadrant that needle will deviate towards unless insertion error <5mm
         if self.below5 > 0.5:
             self.quarter = ""
         elif self.rightLeft == "right" and self.topBottom == "top":
@@ -204,11 +211,11 @@ class NeedleDeviationPredictorWidget:
         image = qt.QPixmap(self.dir + ("/NeedleDeviationPredictor GUI/%s%s.png" % (str(self.quarter), str(self.hitMiss
                                                                                                           ))))
         self.label1.setPixmap(image)
-
-        # Set size policy for updated output
-        qSize = qt.QSizePolicy()
-        qSize.setHorizontalPolicy(qt.QSizePolicy.Ignored)
-        qSize.setVerticalPolicy(qt.QSizePolicy.Preferred)
+        #
+        # # Set size policy for updated output
+        # qSize = qt.QSizePolicy()
+        # qSize.setHorizontalPolicy(qt.QSizePolicy.Ignored)
+        # qSize.setVerticalPolicy(qt.QSizePolicy.Preferred)
 
     def run_regressions(self):
 
@@ -217,7 +224,6 @@ class NeedleDeviationPredictorWidget:
         # The attribute inTopPlus2 was correctly classified 74.92% of the time over 10 random tests.
 
         # Convert user input to float
-        self.bevelAngleval = float(self.bevelAngle.text)
         self.entryErrRval = float(self.entryErrR.text)
         self.entryErrAval = float(self.entryErrA.text)
         self.entryErrSval = float(self.entryErrS.text)
@@ -238,11 +244,11 @@ class NeedleDeviationPredictorWidget:
         if self.below5 > 0.5:
             self.hitMiss = "hitting"
             # Probability of targeting error less than 5 mm
-            self.below5Accuracy = 100 * self.below5
+            self.below5Accuracy = 10 * self.below5
         else:
             self.hitMiss = "missing"
             # Probability of targeting error greater than 5 mm
-            self.below5Accuracy = 100 - 100 * self.below5
+            self.below5Accuracy = 10 - 10 * self.below5
 
         # Logistic regression model used to classify whether the needle deviated to the right or to the left of the
         # target
@@ -252,11 +258,11 @@ class NeedleDeviationPredictorWidget:
         if self.inRight > 0.5:
             self.rightLeft = "right"
             # Probability of needle deviation to the right
-            self.inRightAccuracy = 100 * self.inRight
+            self.inRightAccuracy = 10 * self.inRight
         else:
             self.rightLeft = "left"
             # Probability of needle deviation to the left
-            self.inRightAccuracy = 100 - 100 * self.inRight
+            self.inRightAccuracy = 10 - 10 * self.inRight
 
         # Logistic regression model used to classify whether the needle deviated to the top or to the bottom of the
         # target
@@ -266,11 +272,11 @@ class NeedleDeviationPredictorWidget:
         if self.inTopPlus2 > 0.5:
             self.topBottom = "top"
             # Probability of needle deviation to the top
-            self.inTopAccuracy = 100 * self.inTopPlus2
+            self.inTopAccuracy = 10 * self.inTopPlus2
         else:
             self.topBottom = "bottom"
             # Probability of needle deviation to the bottom
-            self.inTopAccuracy = 100 - 100 * self.inTopPlus2
+            self.inTopAccuracy = 10 - 10 * self.inTopPlus2
 
         # Update output text and visual
         self.display_output()

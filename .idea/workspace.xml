@@ -1803,8 +1803,8 @@
       <file leaf-file-name="NeedleDeviationPredictor.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NeedleDeviationPredictor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1051">
-              <caret line="214" column="96" lean-forward="true" selection-start-line="214" selection-start-column="96" selection-end-line="214" selection-end-column="96" />
+            <state relative-caret-position="1671">
+              <caret line="250" column="55" lean-forward="true" selection-start-line="250" selection-start-column="55" selection-end-line="250" selection-end-column="55" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -1823,22 +1823,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>loaddataset</find>
-      <find />
-      <find>,</find>
-      <find>-</find>
-      <find>box</find>
-      <find>setuplayout</find>
-      <find>%</find>
-      <find>input</find>
-      <find>bevel</find>
-      <find>entryE</find>
-      <find>self\.entryErrR \= qt\.QLineEdit\(\)\n        self\.entryErrR\.setText\(\&quot;Enter length \(mm\)\&quot;\)\n        self\.inputBox\.addRow\(\&quot;R\-Axis Entry Error\:\&quot;\, self\.entryErrR\)</find>
-      <find>le</find>
-      <find>insertionLength1</find>
-      <find>self.</find>
-      <find>self</find>
-      <find>entryErrR</find>
       <find>output</find>
       <find>learning</find>
       <find>Machine Learning</find>
@@ -1853,6 +1837,22 @@
       <find>hit</find>
       <find>missing</find>
       <find>chance</find>
+      <find>slider</find>
+      <find>label</find>
+      <find>bevelAngle</find>
+      <find>textchanged</find>
+      <find>bevelangle</find>
+      <find>enter all data</find>
+      <find>exp</find>
+      <find>outputlabel</find>
+      <find>run_regress</find>
+      <find>counter</find>
+      <find>bevelangleval</find>
+      <find>pause</find>
+      <find>calculate</find>
+      <find>run_regressions</find>
+      <find>self.parent</find>
+      <find>size</find>
     </findStrings>
     <replaceStrings>
       <replace>len1</replace>
@@ -1873,6 +1873,7 @@
       <replace>Insertion Precidto</replace>
       <replace>Needle Deviation Predictor</replace>
       <replace>NeedleDeviationPredictor</replace>
+      <replace>self.counter</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -1932,6 +1933,21 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="LeapLink" type="cbb8eebc:String" user="LeapLink" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Machine Learning Module" type="cbb8eebc:String" user="Machine Learning Module" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -1947,21 +1963,6 @@
             <path>
               <item name="NeedleDeviationPredictor" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="LeapLink" type="cbb8eebc:String" user="LeapLink" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Machine Learning Module" type="cbb8eebc:String" user="Machine Learning Module" />
             </path>
           </expand>
           <select />
@@ -2080,7 +2081,7 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08194444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16388889" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2110,7 +2111,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -2311,18 +2314,19 @@
     <entry file="file://$PROJECT_DIR$/inTopPlus2output.txt" />
     <entry file="file://$PROJECT_DIR$/WekaOutputReader.py" />
     <entry file="file://$PROJECT_DIR$/MachineLearningModule.py" />
+    <entry file="file://$PROJECT_DIR$/NeedleDeviationPredictor GUI/Q4missing.png" />
     <entry file="file://$PROJECT_DIR$/../LeapMotionInterpreter/LeapMotionInterpreter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5141">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="-1754">
+          <caret line="25" column="19" lean-forward="false" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NeedleDeviationPredictor GUI/Q4missing.png" />
     <entry file="file://$PROJECT_DIR$/NeedleDeviationPredictor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1051">
-          <caret line="214" column="96" lean-forward="true" selection-start-line="214" selection-start-column="96" selection-end-line="214" selection-end-column="96" />
+        <state relative-caret-position="1671">
+          <caret line="250" column="55" lean-forward="true" selection-start-line="250" selection-start-column="55" selection-end-line="250" selection-end-column="55" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
