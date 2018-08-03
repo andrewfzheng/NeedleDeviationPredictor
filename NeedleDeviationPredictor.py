@@ -11,7 +11,7 @@ class NeedleDeviationPredictor:
         parent.helpText = """
         """
         parent.acknowledgementText = """
-        Pedro Moreira, PhD, Nobuhiko Hata, PhD
+        Pedro Moreira, PhD, Junichi Tokuda, PhD, Nobuhiko Hata, PhD
         """        
         parent.icon = qt.QIcon(os.path.dirname(os.path.realpath(__file__)) + '/NeedleDeviationPredictor GUI/icon.png')
         self.parent = parent
@@ -45,7 +45,7 @@ class NeedleDeviationPredictorWidget:
         inputBox = ctk.ctkCollapsibleGroupBox()
         inputBox.setTitle('Input:')
         self.setupLayout.addRow(inputBox)
-        self.inputBox = qt.QFormLayout(inputBox)
+        self.inputBoxLayout = qt.QFormLayout(inputBox)
 
         # Bevel angle slider
         self.bevelAngleSlider = ctk.ctkSliderWidget()
@@ -53,57 +53,57 @@ class NeedleDeviationPredictorWidget:
         self.bevelAngleSlider.decimals = 0
         self.bevelAngleSlider.minimum = 0
         self.bevelAngleSlider.maximum = 360
-        self.inputBox.addRow("Bevel Angle:", self.bevelAngleSlider)
+        self.inputBoxLayout.addRow("Bevel Angle:", self.bevelAngleSlider)
 
         # R-Axis Entry Error
         self.entryErrR = qt.QLineEdit()
         self.entryErrR.setPlaceholderText("Enter length (mm)")
-        self.inputBox.addRow("R-Axis Entry Error:", self.entryErrR)
+        self.inputBoxLayout.addRow("R-Axis Entry Error:", self.entryErrR)
 
         # A-Axis Entry Error
         self.entryErrA = qt.QLineEdit()
         self.entryErrA.setPlaceholderText("Enter length (mm)")
-        self.inputBox.addRow("A-Axis Entry Error:", self.entryErrA)
+        self.inputBoxLayout.addRow("A-Axis Entry Error:", self.entryErrA)
 
         # S-Axis Entry Error
         self.entryErrS = qt.QLineEdit()
         self.entryErrS.setPlaceholderText("Enter length (mm)")
-        self.inputBox.addRow("S-Axis Entry Error:", self.entryErrS)
+        self.inputBoxLayout.addRow("S-Axis Entry Error:", self.entryErrS)
 
         # Curve Radius
         self.curveRadius = qt.QLineEdit()
         self.curveRadius.setPlaceholderText("Enter length (mm)")
-        self.inputBox.addRow("Curve Radius:", self.curveRadius)
+        self.inputBoxLayout.addRow("Curve Radius:", self.curveRadius)
 
         # Insertion Length
         self.insertionLength = qt.QLineEdit()
         self.insertionLength.setPlaceholderText("Enter length (mm)")
-        self.inputBox.addRow("Insertion Length:", self.insertionLength)
+        self.inputBoxLayout.addRow("Insertion Length:", self.insertionLength)
 
         # Needle length in prostate
         self.len1 = qt.QLineEdit()
         self.len1.setPlaceholderText("Enter length (mm)")
-        self.inputBox.addRow("Needle length in prostate:", self.len1)
+        self.inputBoxLayout.addRow("Needle length in prostate:", self.len1)
 
         # Needle Length in pelvic diaphragm
         self.len2 = qt.QLineEdit()
         self.len2.setPlaceholderText("Enter length (mm)")
-        self.inputBox.addRow("Needle length in pelvic diaphragm:", self.len2)
+        self.inputBoxLayout.addRow("Needle length in pelvic diaphragm:", self.len2)
 
         # Needle length in bulbospongiosus
         self.len3 = qt.QLineEdit()
         self.len3.setPlaceholderText("Enter length (mm)")
-        self.inputBox.addRow("Needle length in bulbospongiousus:", self.len3)
+        self.inputBoxLayout.addRow("Needle length in bulbospongiousus:", self.len3)
 
         # Needle length in ischiocavernosus
         self.len4 = qt.QLineEdit()
         self.len4.setPlaceholderText("Enter length (mm)")
-        self.inputBox.addRow("Needle length in ischiocavernosus:", self.len4)
+        self.inputBoxLayout.addRow("Needle length in ischiocavernosus:", self.len4)
 
         # Needle length in unsegmented tissue
         self.len5 = qt.QLineEdit()
         self.len5.setPlaceholderText("Enter length (mm)")
-        self.inputBox.addRow("Needle length in unsegmented tissue:", self.len5)
+        self.inputBoxLayout.addRow("Needle length in unsegmented tissue:", self.len5)
 
         # Calculate Error
         self.calculateError = qt.QPushButton("Calculate Error")
@@ -124,7 +124,7 @@ class NeedleDeviationPredictorWidget:
 
         # Output box
         outputBoxCollapsible = ctk.ctkCollapsibleGroupBox()
-        outputBoxCollapsible.setTitle('Results')
+        outputBoxCollapsible.setTitle('Output')
         self.outputLayout.addRow(outputBoxCollapsible)
         self.outputBox = qt.QFormLayout(outputBoxCollapsible)
 
@@ -162,18 +162,18 @@ class NeedleDeviationPredictorWidget:
             return False
 
     def check_inputs(self):
-        self.counter = 0
+        counter = 0
         # Count number of entered values that are floats except bevel angle
         values = [self.entryErrR, self.entryErrA, self.entryErrS, self.curveRadius,
                   self.insertionLength, self.len1, self.len2, self.len3, self.len4, self.len5]
         for value in values:
             if self.is_float(value.text):
-                self.counter += 1
+                counter += 1
             else:
-                self.counter -= 1
+                counter -= 1
 
         # Total number of values except bevel angle
-        if self.counter == 10:
+        if counter == 10:
             self.calculateError.setEnabled(1)
             self.calculateError.setText('Calculate Error:')
             self.inputsFilled = True
@@ -192,31 +192,25 @@ class NeedleDeviationPredictorWidget:
         self.outputLabel.setText(
             "The needle has a rating of %0.1f/10.0 for %s \nthe target, a rating of %0.1f/10.0 for deflecting %s,\nand "
             "a rating of %0.1f/10.0 for deflecting to the %s." % (self.below5Accuracy, self.hitMiss,
-                                                              self.inRightAccuracy, self.rightLeft,
-                                                              self.inTopAccuracy, self.topBottom))
+                                                                  self.inRightAccuracy, self.rightLeft,
+                                                                  self.inTopAccuracy, self.topBottom))
 
         # Get predicted quadrant that needle will deviate towards unless insertion error <5mm
         if self.below5 > 0.5:
-            self.quarter = ""
+            quarter = ""
         elif self.rightLeft == "right" and self.topBottom == "top":
-            self.quarter = "Q1"
+            quarter = "Q1"
         elif self.rightLeft == "right" and self.topBottom == "bottom":
-            self.quarter = "Q2"
+            quarter = "Q2"
         elif self.rightLeft == "left" and self.topBottom == "bottom":
-            self.quarter = "Q3"
+            quarter = "Q3"
         else:
-            self.quarter = "Q4"
+            quarter = "Q4"
 
         # Update output visual
-        image = qt.QPixmap(self.dir + ("/NeedleDeviationPredictor GUI/%s%s.png" % (str(self.quarter), str(self.hitMiss
-                                                                                                          ))))
+        image = qt.QPixmap(self.dir + ("/NeedleDeviationPredictor GUI/%s%s.png" % (str(quarter), str(self.hitMiss))))
         self.label1.setPixmap(image)
-        #
-        # # Set size policy for updated output
-        # qSize = qt.QSizePolicy()
-        # qSize.setHorizontalPolicy(qt.QSizePolicy.Ignored)
-        # qSize.setVerticalPolicy(qt.QSizePolicy.Preferred)
-
+        
     def run_regressions(self):
 
         # The attribute below5 was correctly classified 68.64% of the time over 10 random tests.
@@ -224,22 +218,22 @@ class NeedleDeviationPredictorWidget:
         # The attribute inTopPlus2 was correctly classified 74.92% of the time over 10 random tests.
 
         # Convert user input to float
-        self.entryErrRval = float(self.entryErrR.text)
-        self.entryErrAval = float(self.entryErrA.text)
-        self.entryErrSval = float(self.entryErrS.text)
-        self.curveRadiusval = float(self.curveRadius.text)
-        self.insertionLengthval = float(self.insertionLength.text)
-        self.len1val = float(self.len1.text)
-        self.len2val = float(self.len2.text)
-        self.len3val = float(self.len3.text)
-        self.len4val = float(self.len4.text)
-        self.len5val = float(self.len5.text)
+        entryErrRval = float(self.entryErrR.text)
+        entryErrAval = float(self.entryErrA.text)
+        entryErrSval = float(self.entryErrS.text)
+        curveRadiusval = float(self.curveRadius.text)
+        insertionLengthval = float(self.insertionLength.text)
+        len1val = float(self.len1.text)
+        len2val = float(self.len2.text)
+        len3val = float(self.len3.text)
+        len4val = float(self.len4.text)
+        len5val = float(self.len5.text)
 
         # Logistic regression model used to classify whether the targeting error was above or below 5 mm
-        self.below5 = 1 / (1 + exp(0.0007 * self.bevelAngleval - 0.1495 * self.entryErrRval - 0.119 * self.entryErrAval
-                           + 0.0179 * self.entryErrSval - 0.0001 * self.curveRadiusval + 0.0221 *
-                           self.insertionLengthval - 0.0385 * self.len1val - 0.0013 * self.len2val - 0.0001 *
-                           self.len3val - 0.0068 * self.len4val - 0.0084 * self.len5val - 0.8513))
+        self.below5 = 1 / (1 + exp(0.0007 * self.bevelAngleval - 0.1495 * entryErrRval - 0.119 * entryErrAval
+                           + 0.0179 * entryErrSval - 0.0001 * curveRadiusval + 0.0221 *
+                           insertionLengthval - 0.0385 * len1val - 0.0013 * len2val - 0.0001 *
+                           len3val - 0.0068 * len4val - 0.0084 * len5val - 0.8513))
 
         if self.below5 > 0.5:
             self.hitMiss = "hitting"
@@ -252,9 +246,9 @@ class NeedleDeviationPredictorWidget:
 
         # Logistic regression model used to classify whether the needle deviated to the right or to the left of the
         # target
-        self.inRight = 1 / (1 + exp(-0.0037 * self.bevelAngleval - 0.8917 * self.entryErrRval - 0.2234 *
-                            self.entryErrAval - 0.0303 * self.entryErrSval + 0.0002 * self.curveRadiusval + 0.0095 *
-                            self.insertionLengthval - 0.068))
+        self.inRight = 1 / (1 + exp(-0.0037 * self.bevelAngleval - 0.8917 * entryErrRval - 0.2234 *
+                            entryErrAval - 0.0303 * entryErrSval + 0.0002 * curveRadiusval + 0.0095 *
+                            insertionLengthval - 0.068))
         if self.inRight > 0.5:
             self.rightLeft = "right"
             # Probability of needle deviation to the right
@@ -266,9 +260,9 @@ class NeedleDeviationPredictorWidget:
 
         # Logistic regression model used to classify whether the needle deviated to the top or to the bottom of the
         # target
-        self.inTopPlus2 = 1 / (1 + exp(0.0013 * self.bevelAngleval - 0.0996 * self.entryErrRval - 0.7932 *
-                               self.entryErrAval + 0.0384 * self.entryErrSval - 0.0002 * self.curveRadiusval + 0.0279 *
-                               self.insertionLengthval - 3.0831))
+        self.inTopPlus2 = 1 / (1 + exp(0.0013 * self.bevelAngleval - 0.0996 * entryErrRval - 0.7932 *
+                               entryErrAval + 0.0384 * entryErrSval - 0.0002 * curveRadiusval + 0.0279 *
+                               insertionLengthval - 3.0831))
         if self.inTopPlus2 > 0.5:
             self.topBottom = "top"
             # Probability of needle deviation to the top

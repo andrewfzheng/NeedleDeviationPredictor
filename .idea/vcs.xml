@@ -3,5 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$USER_HOME$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../LeapMotionInterpreter" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/NeedleDeviationPredictor GUI" vcs="Git" />
   </component>
 </project>
