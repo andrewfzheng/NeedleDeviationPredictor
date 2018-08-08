@@ -163,6 +163,7 @@ class NeedleDeviationPredictorWidget:
 
     def check_inputs(self):
         counter = 0
+
         # Count number of entered values that are floats except bevel angle
         values = [self.entryErrR, self.entryErrA, self.entryErrS, self.curveRadius,
                   self.insertionLength, self.len1, self.len2, self.len3, self.len4, self.len5]
@@ -183,15 +184,17 @@ class NeedleDeviationPredictorWidget:
 
     def bevel_angle_changed(self, newValue):
         self.bevelAngleval = newValue
+
         # Actively calculate output as bevel angle is changed if all other inputs are given
         if self.inputsFilled:
             self.run_regressions()
 
     def display_output(self):
+
         # Update output text
         self.outputLabel.setText(
-            "The needle has a rating of %0.1f/10.0 for %s \nthe target, a rating of %0.1f/10.0 for deflecting %s,\nand "
-            "a rating of %0.1f/10.0 for deflecting to the %s." % (self.below5Accuracy, self.hitMiss,
+            "The needle has a rating of %0.2f/10.0 for %s \nthe target, a rating of %0.2f/10.0 for deflecting %s,\nand "
+            "a rating of %0.2f/10.0 for deflecting to the %s." % (self.below5Accuracy, self.hitMiss,
                                                                   self.inRightAccuracy, self.rightLeft,
                                                                   self.inTopAccuracy, self.topBottom))
 
