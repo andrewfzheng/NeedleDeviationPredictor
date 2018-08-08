@@ -226,17 +226,17 @@ class NeedleDeviationPredictorWidget:
         entryErrSval = float(self.entryErrS.text)
         curveRadiusval = float(self.curveRadius.text)
         insertionLengthval = float(self.insertionLength.text)
-        len1val = float(self.len1.text)
-        len2val = float(self.len2.text)
-        len3val = float(self.len3.text)
-        len4val = float(self.len4.text)
-        len5val = float(self.len5.text)
+        self.len1val = float(self.len1.text)
+        self.len2val = float(self.len2.text)
+        self.len3val = float(self.len3.text)
+        self.len4val = float(self.len4.text)
+        self.len5val = float(self.len5.text)
 
         # Logistic regression model used to classify whether the targeting error was above or below 5 mm
         self.below5 = 1 / (1 + exp(0.0007 * self.bevelAngleval - 0.1495 * entryErrRval - 0.119 * entryErrAval
                            + 0.0179 * entryErrSval - 0.0001 * curveRadiusval + 0.0221 *
-                           insertionLengthval - 0.0385 * len1val - 0.0013 * len2val - 0.0001 *
-                           len3val - 0.0068 * len4val - 0.0084 * len5val - 0.8513))
+                           insertionLengthval - 0.0385 * self.len1val - 0.0013 * self.len2val - 0.0001 *
+                           self.len3val - 0.0068 * self.len4val - 0.0084 * self.len5val - 0.8513))
 
         if self.below5 > 0.5:
             self.hitMiss = "hitting"
