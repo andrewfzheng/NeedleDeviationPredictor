@@ -1805,8 +1805,8 @@
       <file leaf-file-name="NeedleDeviationPredictor.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NeedleDeviationPredictor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3390">
-              <caret line="226" column="25" lean-forward="false" selection-start-line="226" selection-start-column="25" selection-end-line="226" selection-end-column="25" />
+            <state relative-caret-position="188">
+              <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -1825,8 +1825,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>missing</find>
-      <find>chance</find>
       <find>slider</find>
       <find>label</find>
       <find>bevelAngle</find>
@@ -1855,6 +1853,8 @@
       <find>self.below5</find>
       <find>self.len1</find>
       <find>len1val</find>
+      <find>below5</find>
+      <find>5</find>
     </findStrings>
     <replaceStrings>
       <replace>len1</replace>
@@ -1939,7 +1939,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -1951,6 +1950,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -2085,7 +2085,14 @@
       <option name="project" value="LOCAL" />
       <updated>1533689348045</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Minor fix">
+      <created>1533742428174</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1533742428174</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2124,7 +2131,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update acknowledgement text" />
     <MESSAGE value="Update significant figures" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update significant figures" />
+    <MESSAGE value="Minor fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2340,8 +2348,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/NeedleDeviationPredictor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3390">
-          <caret line="226" column="25" lean-forward="false" selection-start-line="226" selection-start-column="25" selection-end-line="226" selection-end-column="25" />
+        <state relative-caret-position="188">
+          <caret line="229" column="0" lean-forward="false" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

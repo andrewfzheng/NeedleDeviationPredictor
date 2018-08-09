@@ -194,12 +194,12 @@ class NeedleDeviationPredictorWidget:
         # Update output text
         self.outputLabel.setText(
             "The needle has a rating of %0.2f/10.0 for %s \nthe target, a rating of %0.2f/10.0 for deflecting %s,\nand "
-            "a rating of %0.2f/10.0 for deflecting to the %s." % (self.below5Accuracy, self.hitMiss,
+            "a rating of %0.2f/10.0 for deflecting to the %s." % (self.below5dot76Accuracy, self.hitMiss,
                                                                   self.inRightAccuracy, self.rightLeft,
                                                                   self.inTopAccuracy, self.topBottom))
 
         # Get predicted quadrant that needle will deviate towards unless insertion error <5mm
-        if self.below5 > 0.5:
+        if self.below5dot76 > 0.5:
             quarter = ""
         elif self.rightLeft == "right" and self.topBottom == "top":
             quarter = "Q1"
@@ -213,12 +213,8 @@ class NeedleDeviationPredictorWidget:
         # Update output visual
         image = qt.QPixmap(self.dir + ("/NeedleDeviationPredictor GUI/%s%s.png" % (str(quarter), str(self.hitMiss))))
         self.label1.setPixmap(image)
-        
-    def run_regressions(self):
 
-        # The attribute below5 was correctly classified 68.64% of the time over 10 random tests.
-        # The attribute inRight was correctly classified 77.29% of the time over 10 random tests.
-        # The attribute inTopPlus2 was correctly classified 74.92% of the time over 10 random tests.
+    def run_regressions(self):
 
         # Convert user input to float
         entryErrRval = float(self.entryErrR.text)
@@ -232,20 +228,20 @@ class NeedleDeviationPredictorWidget:
         self.len4val = float(self.len4.text)
         self.len5val = float(self.len5.text)
 
-        # Logistic regression model used to classify whether the targeting error was above or below 5 mm
-        self.below5 = 1 / (1 + exp(0.0007 * self.bevelAngleval - 0.1495 * entryErrRval - 0.119 * entryErrAval
-                           + 0.0179 * entryErrSval - 0.0001 * curveRadiusval + 0.0221 *
-                           insertionLengthval - 0.0385 * self.len1val - 0.0013 * self.len2val - 0.0001 *
-                           self.len3val - 0.0068 * self.len4val - 0.0084 * self.len5val - 0.8513))
+        # Logistic regression model used to classify whether the targeting error was above or below 5.76 mm
+        self.below5dot76 = 1 / (1 + exp(-0.0003 * self.bevelAngleval - 0.1615 * entryErrRval - 0.1894 * entryErrAval
+                           + 0.0379 * entryErrSval - 0.0001 * curveRadiusval + 0.0177 *
+                           insertionLengthval - 0.0076 * self.len1val - 0.0017 * self.len2val - - 0.0228 *
+                           self.len3val - 0.0112 * self.len4val - 0.0304 * self.len5val - 1.9245))
 
-        if self.below5 > 0.5:
+        if self.below5dot76 > 0.5:
             self.hitMiss = "hitting"
-            # Probability of targeting error less than 5 mm
-            self.below5Accuracy = 10 * self.below5
+            # Probability of targeting error less than 5.76 mm
+            self.below5dot76Accuracy = 10 * self.below5dot76
         else:
             self.hitMiss = "missing"
-            # Probability of targeting error greater than 5 mm
-            self.below5Accuracy = 10 - 10 * self.below5
+            # Probability of targeting error greater than 5.76 mm
+            self.below5dot76Accuracy = 10 - 10 * self.below5dot76
 
         # Logistic regression model used to classify whether the needle deviated to the right or to the left of the
         # target
