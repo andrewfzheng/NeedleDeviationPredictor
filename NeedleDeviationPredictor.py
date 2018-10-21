@@ -131,8 +131,8 @@ class NeedleDeviationPredictorWidget:
         # Initial output text
         self.outputLabel = qt.QLabel("")
         self.outputBox.addRow(self.outputLabel)
-        self.outputLabel.setText("The needle has a rating of 0.0/10.0 for hitting the \ntarget, a rating of 0.0/10.0 "
-                                 "for deflecting to the right,\nand a rating of 0.0/10.0 for deflecting to the top.")
+        self.outputLabel.setText("The needle has a probability of 00.00% to hit the \ntarget, a probability of 00.00% "
+                                 "to deflect to the right,\nand a probability of 00.00% to deflect to the top.")
         # Initial visual output
         image = qt.QPixmap(self.dir + "/NeedleDeviationPredictor GUI/empty.png")
         self.label1 = qt.QLabel("")
@@ -193,8 +193,8 @@ class NeedleDeviationPredictorWidget:
 
         # Update output text
         self.outputLabel.setText(
-            "The needle has a rating of %0.2f/10.0 for %s \nthe target, a rating of %0.2f/10.0 for deflecting %s,\nand "
-            "a rating of %0.2f/10.0 for deflecting to the %s." % (self.below5dot76Accuracy, self.hitMiss,
+            "The needle has a probability of %0.1f%% to %s \nthe target, a probability of %0.1f%% to deflect %s,"
+            "\nand a probability of %0.1f%% to deflect to the %s." % (self.below5dot76Accuracy, self.hitMiss,
                                                                   self.inRightAccuracy, self.rightLeft,
                                                                   self.inTopAccuracy, self.topBottom))
 
@@ -235,13 +235,13 @@ class NeedleDeviationPredictorWidget:
                            self.len3val - 0.0112 * self.len4val - 0.0304 * self.len5val - 1.9245))
 
         if self.below5dot76 > 0.5:
-            self.hitMiss = "hitting"
+            self.hitMiss = "hit"
             # Probability of targeting error less than 5.76 mm
-            self.below5dot76Accuracy = 10 * self.below5dot76
+            self.below5dot76Accuracy = 100 * self.below5dot76
         else:
-            self.hitMiss = "missing"
+            self.hitMiss = "miss"
             # Probability of targeting error greater than 5.76 mm
-            self.below5dot76Accuracy = 10 - 10 * self.below5dot76
+            self.below5dot76Accuracy = 100 - 100 * self.below5dot76
 
         # Logistic regression model used to classify whether the needle deviated to the right or to the left of the
         # target
@@ -251,11 +251,11 @@ class NeedleDeviationPredictorWidget:
         if self.inRight > 0.5:
             self.rightLeft = "right"
             # Probability of needle deviation to the right
-            self.inRightAccuracy = 10 * self.inRight
+            self.inRightAccuracy = 100 * self.inRight
         else:
             self.rightLeft = "left"
             # Probability of needle deviation to the left
-            self.inRightAccuracy = 10 - 10 * self.inRight
+            self.inRightAccuracy = 100 - 100 * self.inRight
 
         # Logistic regression model used to classify whether the needle deviated to the top or to the bottom of the
         # target
@@ -265,11 +265,11 @@ class NeedleDeviationPredictorWidget:
         if self.inTopPlus2 > 0.5:
             self.topBottom = "top"
             # Probability of needle deviation to the top
-            self.inTopAccuracy = 10 * self.inTopPlus2
+            self.inTopAccuracy = 100 * self.inTopPlus2
         else:
             self.topBottom = "bottom"
             # Probability of needle deviation to the bottom
-            self.inTopAccuracy = 10 - 10 * self.inTopPlus2
+            self.inTopAccuracy = 100 - 100 * self.inTopPlus2
 
         # Update output text and visual
         self.display_output()
